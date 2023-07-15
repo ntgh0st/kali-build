@@ -20,6 +20,8 @@
       - spice-vdagent  
       - golang-go
       - feroxbuster
+      - neo4j
+      - rsyslog
     state: latest
   become: true
   become_method: sudo
