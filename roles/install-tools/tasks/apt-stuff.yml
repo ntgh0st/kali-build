@@ -22,6 +22,7 @@
       - feroxbuster
       - neo4j
       - rsyslog
+      - ufw
     state: latest
   become: true
   become_method: sudo
