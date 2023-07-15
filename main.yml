@@ -18,7 +18,7 @@
             - GitHub.copilot-nightly
             - snyk-security.snyk-vulnerability-scanner
     - role: gantsign.oh-my-zsh
-       users: 
+      users: 
         - username: "{{ ansible_user_id }}"
           oh_my_zsh:
             theme: gallois
