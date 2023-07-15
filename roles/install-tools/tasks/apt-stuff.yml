@@ -19,6 +19,7 @@
       - exiftool
       - spice-vdagent  
       - golang-go
+      - feroxbuster
     state: latest
   become: true
   become_method: sudo
