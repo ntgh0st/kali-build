@@ -25,6 +25,7 @@
       - ufw
       - dconf-cli
       - cargo
+      - gnome-shell-extension-manager
     state: latest
   become: true
   become_method: sudo

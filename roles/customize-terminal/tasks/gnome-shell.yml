@@ -1,0 +1,10 @@
+---
+- name: "Load gnome terminal profiles"
+  shell: dconf load /org/gnome/terminal/legacy/profiles:/ < "{{ role_path }}/files/gnome-terminal-profiles.dconf"
+
+- name: "load gnome shell keybindings"
+  shell: dconf load / < "{{ role_path }}/files/keybindings.dconf"
+
+- name: "load gnome shell keybindings"
+  shell: dconf load / < "{{ role_path }}/files/tiling-assistant.dconf"
+
