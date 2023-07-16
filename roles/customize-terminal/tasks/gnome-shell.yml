@@ -5,6 +5,9 @@
 - name: "load gnome shell keybindings"
   shell: dconf load / < "{{ role_path }}/files/keybindings.dconf"
 
-- name: "load gnome shell keybindings"
+- name: "load gnome tiling assistant keybindings"
   shell: dconf load / < "{{ role_path }}/files/tiling-assistant.dconf"
+
+- name: "load gnome dash-to-dock config"
+  shell: dconf load / < "{{ role_path }}/files/dash-to-dock.dconf"
 
