@@ -23,6 +23,7 @@
       - neo4j
       - rsyslog
       - ufw
+      - dconf-cli
     state: latest
   become: true
   become_method: sudo
