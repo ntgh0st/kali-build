@@ -1,4 +1,4 @@
-[/]
+[org/gnome/desktop/wm/keybindings]
 close=['<Super>c']
 maximize=['<Alt><Super>Return']
 minimize=['<Super>d']
