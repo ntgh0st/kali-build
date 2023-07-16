@@ -24,6 +24,7 @@
       - rsyslog
       - ufw
       - dconf-cli
+      - cargo
     state: latest
   become: true
   become_method: sudo
