@@ -7,3 +7,9 @@
 - name: "Load gnome terminal profiles"
   shell: dconf load /org/gnome/terminal/legacy/profiles:/ < "{{ role_path }}/files/gnome-terminal-profiles.dconf"
 
+- name: "Copying vimrc Config"
+  copy:
+    src: "{{ role_path }}/files/.vimrc"
+    dest: "{{ ansible_env.HOME }}"
+
+
