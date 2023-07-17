@@ -8,7 +8,10 @@
 * Make sure we have a sudo token (sudo whoami)
 * ansible-playbook main.yml
 
-# Off-Video Changes
-* Mate-Terminal Colors, I show how to configure it here (https://www.youtube.com/watch?v=2y68gluYTcc). I just did the steps in that video on my old VM to backup the color scheme, then copied it to this repo.
-* Evil-Winrm/Certipy/SharpCollection/CME/Impacket, will make a video for these soon
-* Updated BurpSuite Activation. Later versions of ansible would hang if a shell script started a process that didn't die. Put a timeout on the java process
+# What this script does
+* Various tasks for installing tools from apt, pipx, gem, cargo, go, as well as pulling releases from and cloning github repos
+   * You can modify this to add tools or additional sources as necessary
+* Configures firefox to proxy https traffic with burp suite
+* Configures my zsh and tmux configuration files
+* Configures my gnome shell keybindings via dconf
+* Configures system wide logging
