@@ -1,7 +1,7 @@
 ** Make sure to pip install ansible, apt has an older copy **
 
 # Instructions
-* Start with Parrot HTB Edition
+* Start with a fresh installation of Kali Linux, this is made specifically for an installation using Gnome as it imports some of my keybindings using dconf. If not using Gnome, comment out the line including gnome-shell.yml in `roles/customize-terminal/tasks/main.yml`.
 * Install Ansible (pip3 install ansible)
 * Clone and enter the repo (git clone)
 * ansible-galaxy install -r requirements.yml
