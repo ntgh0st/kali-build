@@ -26,6 +26,10 @@
       - dconf-cli
       - cargo
       - gnome-shell-extension-manager
+      - oscanner
+      - tnscmd10g
+      - wkhtmltopdf
+      - xsel
     state: latest
   become: true
   become_method: sudo
