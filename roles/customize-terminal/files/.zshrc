@@ -363,4 +363,4 @@ setopt INC_APPEND_HISTORY
 
 # force zsh to show the complete history
 alias history="history 0"
-
+bindkey '^v' clear-screen
