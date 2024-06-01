@@ -19,3 +19,16 @@
 
 - name: "install notify"
   shell: go install github.com/hakluke/hakrawler@latest
+
+- name: "install subfinder"
+  shell: go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+  
+- name: "install nuclei"
+  shell: go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+
+- name: "install katana"
+  shell: go install github.com/projectdiscovery/katana/cmd/katana@latest
+
+  
+- name: "install shuffledns"
+  shell: go install -v github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest
