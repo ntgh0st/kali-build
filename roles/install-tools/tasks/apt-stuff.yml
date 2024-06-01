@@ -31,6 +31,7 @@
       - wkhtmltopdf
       - xsel
       - httpx-toolkit
+      - assetfinder
     state: latest
   become: true
   become_method: sudo
