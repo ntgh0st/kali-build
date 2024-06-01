@@ -30,6 +30,7 @@
       - tnscmd10g
       - wkhtmltopdf
       - xsel
+      - httpx-toolkit
     state: latest
   become: true
   become_method: sudo
