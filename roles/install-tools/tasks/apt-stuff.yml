@@ -31,7 +31,8 @@
       - wkhtmltopdf
       - xsel
       - httpx-toolkit
-      - assetfinder
+      - assetfinder 
+      - chromium
     state: latest
   become: true
   become_method: sudo
