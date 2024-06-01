@@ -4,3 +4,6 @@
 
 - name: "install gobuster"
   shell: go install github.com/OJ/gobuster/v3@latest
+
+- name: "install anew"
+  shell: go install -v github.com/tomnomnom/anew@latest
