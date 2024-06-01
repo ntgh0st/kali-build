@@ -8,5 +8,5 @@
 - name: "install anew"
   shell: go install -v github.com/tomnomnom/anew@latest
   
-- name: "install anew"
+- name: "install unfurl"
   shell: go install github.com/tomnomnom/unfurl@latest
