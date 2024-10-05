@@ -48,8 +48,8 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # History configurations
 HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=2000
+HISTSIZE=10000
+SAVEHIST=20000
 setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
 setopt hist_ignore_dups       # ignore duplicated commands history list
 setopt hist_ignore_space      # ignore commands that start with space
@@ -131,7 +131,7 @@ if [ "$color_prompt" = yes ]; then
         . /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
         ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
         ZSH_HIGHLIGHT_STYLES[default]=none
-        ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=white,underline
+        ZSH_HIGHLIGHT_STYLES[unknown-token]=underline
         ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=cyan,bold
         ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=green,underline
         ZSH_HIGHLIGHT_STYLES[global-alias]=fg=green,bold
@@ -257,110 +257,5 @@ if [ -f /etc/zsh_command_not_found ]; then
     . /etc/zsh_command_not_found
 fi
 
-PROMPT=$PROMPT'%F{yellow}%}[%D{%m/%f/%y} %D{%L:%M:%S}] '
 
-# Place into .zshrc
-
-# smart_script will continuously log the input and output of the terminal into a logfile located in ~/Terminal_typescript/raw/
-
-
-smart_script(){
-    # if there's no SCRIPT_LOG_FILE exported yet
-    if [ -z "$SCRIPT_LOG_FILE" ]; then
-        # make folder paths
-        logdirparent=~/Terminal_typescripts
-        logdirraw=raw/$(date +%F)
-        logdir=$logdirparent/$logdirraw
-        logfile=$logdir/$(date +%F_%T).$$.rawlog
-                                txtfile=$logdir/$(date +%F_%T).$$.txt
-        # if no folder exist - make one
-        if [ ! -d $logdir ]; then
-            mkdir -p $logdir
-        fi
-        export SCRIPT_LOG_FILE=$logfile
-        export SCRIPT_LOG_PARENT_FOLDER=$logdirparent
-        export TXTFILE=$txtfile
-
-
-        # quiet output if no args are passed
-        if [ ! -z "$1" ]; then
-            script -f $logfile
-            cat $logfile| perl -pe 's/\\e([^\\[\\]]|\\[.*?[a-zA-Z]|\\].*?\\a)//g' | col -b > $txtfile
-        else
-            script -f -q $logfile
-            cat $logfile | perl -pe 's/\\e([^\\[\\]]|\\[.*?[a-zA-Z]|\\].*?\\a)//g' | col -b > $txtfile
-        fi
-        exit
-    fi
-}
-# Start logging into new file
-alias startnewlog='unset SCRIPT_LOG_FILE && smart_script -v'
-
-
-# savelog manually saves the current terminal in/out into a logfile: 
-# Example: $ savelog logname
-savelog(){
-    # make folder path
-    manualdir=$SCRIPT_LOG_PARENT_FOLDER/manual
-    # if no folder exists - make one
-    if [ ! -d $manualdir ]; then
-        mkdir -p $manualdir
-    fi
-    # make log name
-    logname=${SCRIPT_LOG_FILE##*/}
-    logname=${logname%.*}
-    # add user logname if passed as argument
-    if [ ! -z $1 ]; then
-        logname=$logname'_'$1
-    fi
-    # make filepaths
-    txtfile=$manualdir/$logname'.txt'
-    rawfile=$manualdir/$logname'.rawlog'
-    # make .rawlog readable and save it to .txt file
-    cat $SCRIPT_LOG_FILE | perl -pe 's/\\e([^\\[\\]]|\\[.*?[a-zA-Z]|\\].*?\\a)//g' | col -b > $txtfile
-    # copy corresponding .rawfile
-    cp $SCRIPT_LOG_FILE $rawfile
-    printf '[+] Saved logs'
-    echo ""
-    printf '  \\\\-> '$txtfile''
-    echo ""
-    printf '  \\\\-> '$rawfile''
-}
-
-
-# Run Smart Script at terminal initialization
-smart_script
-if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-      . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-      # change suggestion color
-      ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
-  fi
-  
-  # enable command-not-found if installed
-  if [ -f /etc/zsh_command_not_found ]; then
-    . /etc/zsh_command_not_found
- fi
- export PATH=$PATH:$HOME/.cargo/bin
-  export GOPATH=$HOME/go
-  export PATH=$PATH:$GOPATH/bin
-  if [ -d "$HOME/.local/bin" ] ; then
-      PATH="$HOME/.local/bin:$PATH"
- fi
- alias cls="clear"
-
-# History configurations
-HISTFILE=~/.zsh_history
-HISTSIZE=10000000
-SAVEHIST=10000000
-setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
-setopt hist_ignore_dups       # ignore duplicated commands history list
-setopt hist_ignore_space      # ignore commands that start with space
-setopt hist_verify            # show command with history expansion to user before running it
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_SAVE_NO_DUPS
-setopt INC_APPEND_HISTORY
-#setopt share_history         # share command history data
-
-# force zsh to show the complete history
-alias history="history 0"
-bindkey '^v' clear-screen
+export PATH=$PATH:~/.local/bin/

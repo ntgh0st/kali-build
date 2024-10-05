@@ -27,7 +27,7 @@ scrollback-lines=16384
 scrollback-unlimited=true
 scrollbar-position='right'
 silent-bell=false
-title='root@gibson'
+title='NTgh0st'
 title-mode='replace'
 use-custom-command=false
 use-custom-default-size=true
@@ -35,5 +35,5 @@ use-skey=true
 use-system-font=false
 use-theme-colors=false
 use-urls=true
-visible-name='Video'
+visible-name='Main'
 word-chars='-A-Za-z0-9,./?%&#:_=+@~'

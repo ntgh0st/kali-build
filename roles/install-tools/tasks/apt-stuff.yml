@@ -16,8 +16,7 @@
       - pipx
       - ntpdate
       - flameshot
-      - exiftool
-      - spice-vdagent  
+      - exiftool 
       - golang-go
       - feroxbuster
       - neo4j
@@ -25,13 +24,7 @@
       - ufw
       - dconf-cli
       - cargo
-      - gnome-shell-extension-manager
-      - oscanner
-      - tnscmd10g
-      - wkhtmltopdf
-      - xsel
-      - httpx-toolkit
-      - assetfinder 
+      - gnome-terminal
       - chromium
     state: latest
   become: true
