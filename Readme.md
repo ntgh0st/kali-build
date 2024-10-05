@@ -15,5 +15,5 @@ Based on Ippsec's parrot build [script](https://github.com/IppSec/parrot-build) 
    * You can modify this to add tools or additional sources as necessary
 * Configures firefox to proxy https traffic with burp suite
 * Configures my zsh and tmux configuration files
-* Configures my gnome shell keybindings via dconf
+* Configures gnome via dconf
 * Configures system wide logging
