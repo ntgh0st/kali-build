@@ -1,5 +1,3 @@
-Based on Ippsec's parrot build [script](https://github.com/IppSec/parrot-build) with my modifications and additional tasks.
-
 ** Make sure to pip install ansible, apt has an older copy **
 
 # Instructions
