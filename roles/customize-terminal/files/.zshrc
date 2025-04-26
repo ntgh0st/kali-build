@@ -4,7 +4,7 @@
 setopt autocd              # change directory just by typing its name
 #setopt correct            # auto correct mistakes
 setopt interactivecomments # allow comments in interactive mode
-setopt magicequalsubst     # enable filename expansion for arguments of the form ‘anything=expression’
+setopt magicequalsubst     # enable filename expansion for arguments of the form 'anything=expression'
 setopt nonomatch           # hide error message if there is no match for the pattern
 setopt notify              # report the status of background jobs immediately
 setopt numericglobsort     # sort filenames numerically when it makes sense
@@ -48,8 +48,8 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # History configurations
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=20000
+HISTSIZE=1000
+SAVEHIST=2000
 setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
 setopt hist_ignore_dups       # ignore duplicated commands history list
 setopt hist_ignore_space      # ignore commands that start with space
@@ -91,22 +91,36 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# Function to get VPN and IP information
+get_vpn_ip() {
+    VPN=$(ps -ef | grep 'openvpn [eu|au|us|sg|lab|NTgh0st]' | tail -1 | rev | awk '{print $1}' | rev | sed 's/\..*$//g')
+    IP=$(ip -4 -o addr show eth0 2>/dev/null | awk '{print $4}' | sed 's/\/.*$//g')
+    if [ ! -z "$VPN" ] && ip -4 -o addr show tun0 >/dev/null 2>&1; then
+        IP=$(ip -4 -o addr show tun0 | awk '{print $4}' | sed 's/\/.*$//g')
+        echo "-[%F{cyan}$VPN%F{%(#.blue.green)}]-[%F{white}$IP%F{%(#.blue.green)}]"
+    elif [ ! -z "$IP" ]; then
+        echo "-[%F{white}$IP%F{%(#.blue.green)}]"
+    else
+        echo ""
+    fi
+}
+
 configure_prompt() {
     prompt_symbol=㉿
     # Skull emoji for root terminal
     #[ "$EUID" -eq 0 ] && prompt_symbol=💀
     case "$PROMPT_ALTERNATIVE" in
         twoline)
-            PROMPT=$'%F{%(#.blue.green)}┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}%n'$prompt_symbol$'%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]\n└─%B%(#.%F{red}#.%F{blue}$)%b%F{reset} '
+            PROMPT=$'%F{%(#.blue.green)}┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}%n'$prompt_symbol$'%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]$(get_vpn_ip)\n└─%B%(#.%F{red}#.%F{blue}$)%b%F{reset} '
             # Right-side prompt with exit codes and background processes
             #RPROMPT=$'%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
             ;;
         oneline)
-            PROMPT=$'${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%B%F{%(#.red.blue)}%n@%m%b%F{reset}:%B%F{%(#.blue.green)}%~%b%F{reset}%(#.#.$) '
+            PROMPT=$'${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%B%F{%(#.red.blue)}%n@%m%b%F{reset}:%B%F{%(#.blue.green)}%~%b%F{reset}$(get_vpn_ip)%(#.#.$) '
             RPROMPT=
             ;;
         backtrack)
-            PROMPT=$'${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%B%F{red}%n@%m%b%F{reset}:%B%F{blue}%~%b%F{reset}%(#.#.$) '
+            PROMPT=$'${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%B%F{red}%n@%m%b%F{reset}:%B%F{blue}%~%b%F{reset}$(get_vpn_ip)%(#.#.$) '
             RPROMPT=
             ;;
     esac
@@ -256,6 +270,3 @@ fi
 if [ -f /etc/zsh_command_not_found ]; then
     . /etc/zsh_command_not_found
 fi
-
-
-export PATH=$PATH:~/.local/bin/
